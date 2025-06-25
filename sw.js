@@ -1,13 +1,13 @@
-// Име на кеша. Променете версията, ако актуализирате файловете.
-const CACHE_NAME = 'emotion-mixer-v2';
+// Променете версията тук, за да задействате актуализация!
+const CACHE_NAME = 'emotion-mixer-v3';
 
 // Файлове, които ще бъдат запазени за офлайн работа.
 const urlsToCache = [
   './',
-  './index.html'
-  // Иконите се управляват от операционната система, но е добре да са тук.
-  // './icon-192.png',
-  // './icon-512.png'
+  './index.html',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 // Инсталиране на service worker-а и кеширане на файловете.
@@ -45,6 +45,7 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
+            console.log('Изтриване на стар кеш:', cacheName);
             return caches.delete(cacheName);
           }
         })
